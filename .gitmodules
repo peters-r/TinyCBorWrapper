@@ -1,0 +1,3 @@
+[submodule "tinycbor"]
+	path = tinycbor
+	url = https://github.com/01org/tinycbor.git
