@@ -276,7 +276,7 @@ protected:
 
 //-----------------------------------------------------------------------------
 
-Encoder& end(Encoder& container)
+inline Encoder& end(Encoder& container)
 {
     if (InnerEncoder* s = dynamic_cast<InnerEncoder*>(&container)) {
         Encoder& outer = s->m_rOuter;
@@ -290,7 +290,7 @@ Encoder& end(Encoder& container)
 
 //-----------------------------------------------------------------------------
 
-Encoder& createMap(Encoder& container, size_t size)
+inline Encoder& createMap(Encoder& container, size_t size)
 {
     InnerEncoder* pInner = new InnerEncoder(container);
     
@@ -307,7 +307,7 @@ Encoder& createMap(Encoder& container, size_t size)
 
 //-----------------------------------------------------------------------------
 
-Encoder& createArray(Encoder& container, size_t size)
+inline Encoder& createArray(Encoder& container, size_t size)
 {
     InnerEncoder* pInner = new InnerEncoder(container);
     
@@ -323,7 +323,7 @@ Encoder& createArray(Encoder& container, size_t size)
 
 //-----------------------------------------------------------------------------
 
-tEncoderFn startMap(size_t size = CborIndefiniteLength)
+inline tEncoderFn startMap(size_t size = CborIndefiniteLength)
 {
     return std::bind(createMap, std::placeholders::_1, size);
 }
@@ -331,7 +331,7 @@ tEncoderFn startMap(size_t size = CborIndefiniteLength)
 
 //-----------------------------------------------------------------------------
 
-tEncoderFn startArray(size_t size = CborIndefiniteLength)
+inline tEncoderFn startArray(size_t size = CborIndefiniteLength)
 {
     return std::bind(createArray, std::placeholders::_1, size);
 }
@@ -655,7 +655,7 @@ private:
 
 //-----------------------------------------------------------------------------
 
-Decoder& leave(Decoder& container)
+inline Decoder& leave(Decoder& container)
 {
     if (InnerDecoder* s = dynamic_cast<InnerDecoder*>(&container)) {
         Decoder& outer = s->getOuter();
@@ -669,7 +669,7 @@ Decoder& leave(Decoder& container)
 
 //-----------------------------------------------------------------------------
 
-Decoder& enter(Decoder& container)
+inline Decoder& enter(Decoder& container)
 {
     InnerDecoder* pInner = new InnerDecoder(container);
     return *pInner;
@@ -678,7 +678,7 @@ Decoder& enter(Decoder& container)
 
 //-----------------------------------------------------------------------------
 
-Decoder& skip(Decoder& container)
+inline Decoder& skip(Decoder& container)
 {
     container.next();
     return container;
@@ -811,7 +811,7 @@ inline Decoder& operator >> (Decoder& container, double& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-Decoder& readValue(Decoder& container, T& value)
+inline Decoder& readValue(Decoder& container, T& value)
 {
     container.decode(value);
     return container;
@@ -821,7 +821,7 @@ Decoder& readValue(Decoder& container, T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RString(T& value)
+inline tDecoderFn RString(T& value)
 {
     TString<T> target(value);
     return std::bind(readValue< TString<T> >, 
@@ -832,7 +832,7 @@ tDecoderFn RString(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RBytes(T& value)
+inline tDecoderFn RBytes(T& value)
 {
     TBytes<T> target(value);
     return std::bind(readValue< TBytes<T> >, 
@@ -843,7 +843,7 @@ tDecoderFn RBytes(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RUint(T& value)
+inline tDecoderFn RUint(T& value)
 {
     TUint<T> target(value);
     return std::bind(readValue< TUint<T> >, 
@@ -854,7 +854,7 @@ tDecoderFn RUint(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RInt(T& value)
+inline tDecoderFn RInt(T& value)
 {
     TInt<T> target(value);
     return std::bind(readValue< TInt<T> >, 
@@ -865,7 +865,7 @@ tDecoderFn RInt(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RBool(T& value)
+inline tDecoderFn RBool(T& value)
 {
     TBool<T> target(value);
     return std::bind(readValue< TBool<T> >, 
@@ -876,7 +876,7 @@ tDecoderFn RBool(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RFloat(T& value)
+inline tDecoderFn RFloat(T& value)
 {
     TFloat<T> target(value);
     return std::bind(readValue< TFloat<T> >, 
@@ -887,7 +887,7 @@ tDecoderFn RFloat(T& value)
 //-----------------------------------------------------------------------------
 
 template <typename T>
-tDecoderFn RDouble(T& value)
+inline tDecoderFn RDouble(T& value)
 {
     TDouble<T> target(value);
     return std::bind(readValue< TFloat<T> >, 

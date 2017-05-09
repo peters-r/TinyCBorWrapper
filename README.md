@@ -1,15 +1,15 @@
 TinyCborWrapper
 ===============
 
-The TinyCborWrapper is a C++11 Wrapper for the TinyCbor C-library.
-Use it as is, without any warranty.
-The wrapper was written for a project were i am currently working on: http://supplets.com.
+The TinyCborWrapper is a C++11 Header-only wrapper for the TinyCbor C-library.
+Just use it as is, without any warranty.
+The wrapper has been written for an IOT project, i am currently working on: http://supplets.com.
 
 Documentation and Tests may be added in the future.
-The file main_testing.cpp is an example for the usage.
+The file MainSample.cpp is an example for the usage and contains a main routine.
 
-Don't forget to clone it with the tinycbor submodule:
-`git clone <URL>`
+Don't forget to checkout the tinycbor submodule:
+
 `git submodule update --init`
 
 Just enter the directory and type `make` to build the sample.
