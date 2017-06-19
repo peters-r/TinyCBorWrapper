@@ -1,4 +1,4 @@
-/**
+  /**
  * @file CBOREncoder.h
  * @date 02.05.2017
  * @author Richard Peters
@@ -227,7 +227,7 @@ public:
         cbor_encoder_init(&m_rEncoder, m_pBuffer, buffer_size, 0);
     }
 
-    virtual ~EncoderBuffer() { delete m_pBuffer; }
+    virtual ~EncoderBuffer() { delete[] m_pBuffer; }
 
     size_t size() {
         return cbor_encoder_get_buffer_size(&m_rEncoder, m_pBuffer);
@@ -357,7 +357,7 @@ inline Encoder& operator << (Encoder& container, const T& value)
 //-----------------------------------------------------------------------------
 
 template <>
-inline Encoder& operator<< <decltype(end)>(Encoder& container, const decltype(end)& op)
+inline Encoder& operator<< <decltype(end)>(Encoder& container, decltype(end)& op)
 {
     return op(container);
 }
@@ -620,7 +620,6 @@ public:
     virtual ~DecoderBuffer() { }    
     
 private:
-
     uint8_t* m_pBuffer;
     CborParser m_parser;
     CborValue m_it;
